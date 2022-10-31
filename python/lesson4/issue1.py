@@ -1,7 +1,40 @@
-from morse import encode, decode
+LETTER_TO_MORSE = {
+    'A': '.-', 'B': '-...', 'C': '-.-.',
+    'D': '-..', 'E': '.', 'F': '..-.',
+    'G': '--.', 'H': '....', 'I': '..',
+    'J': '.---', 'K': '-.-', 'L': '.-..',
+    'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.',
+    'S': '...', 'T': '-', 'U': '..-',
+    'V': '...-', 'W': '.--', 'X': '-..-',
+    'Y': '-.--', 'Z': '--..', '1': '.----',
+    '2': '..---', '3': '...--', '4': '....-',
+    '5': '.....', '6': '-....', '7': '--...',
+    '8': '---..', '9': '----.', '0': '-----',
+    ', ': '--..--', '.': '.-.-.-', '?': '..--..',
+    '/': '-..-.', '-': '-....-', '(': '-.--.', ')': '-.--.-',
+    ' ': ' '
+}
 
-if __name__ == '__main__':
-    morse_msg = '-- .- .. -....- .--. -.-- - .... --- -. -....- ..--- ----- .---- ----.'
-    # morse_msg = '123'
-    decoded_msg = decode(morse_msg)
-    assert morse_msg == encode(decoded_msg), "decoding function works incorrectly!"
+
+# давайте вставим несколько доктестов в функцию кодировщик
+def encode(message: str) -> str:
+    """
+    Кодирует строку в соответсвие с таблицей азбуки Морзе
+
+    >>> str(encode("SOS"))
+    '... --- ...'
+    >>> str(encode('sos')) #doctest: -FAIL_FAST
+    '... --- ...'
+    >>> str(encode(123))
+    Traceback (most recent call last):
+    ...
+    TypeError: 'int' object is not iterable
+
+    """
+
+    encoded_signs = [
+        LETTER_TO_MORSE[letter] for letter in message
+    ]
+
+    return ' '.join(encoded_signs)
